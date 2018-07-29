@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>银行卡绑定</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<link href="./static/css/mui.picker.css" rel="stylesheet" />
+	<link href="./static/css/mui.poppicker.css" rel="stylesheet" />
+	<script type="text/javascript" class="sc" src="./static/js/mui.js"></script>
+	<script src="./static/js/mui.picker.js"></script>
+	<script src="./static/js/mui.poppicker.js"></script>
+	<style type="text/css">
+			
+	</style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav bar-nav-color">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="back"></a>
+	<h1 class="mui-title">银行卡绑定</h1>
+</header>
+<div class="mui-content">
+<form action="">
+	<ul class="mui-table-view underline my_backcolor_white">
+		<li class="mui-table-view-cell my_padding0">
+			<div class="mui-input-row">
+				<label>选择银行</label>
+				<input type="text" class="mui-input-clear" placeholder="中国工商银行" readonly="readonly" id="showUserPicker"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+			</div>
+		</li>
+		<li class="mui-table-view-cell my_padding0">
+			<div class="mui-input-row">
+				<label>开户行</label>
+				<input type="text" class="mui-input-clear" placeholder="请输入开户银行名称"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+			</div>
+		</li>
+		<li class="mui-table-view-cell my_padding0">
+			<div class="mui-input-row">
+				<label>真实姓名</label>
+				<input type="text" class="mui-input-clear" placeholder="请输入真实姓名"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+			</div>
+		</li> 
+		<li class="mui-table-view-cell my_padding0">
+			<div class="mui-input-row">
+				<label>银行帐号</label>
+				<input type="text" class="mui-input-clear" placeholder="请输入卡号"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+			</div>
+		</li> 
+	</ul>
+</div>
+<button type="submit" id="submit1"></button>
+<button type="button" data-loading-text="提交中" class="mui-btn mui-btn-danger mui-btn-block my_fiexd_b">确认充值</button>
+</form>
+</div>
+<script type="text/javascript">
+(function($, doc) {
+	$.init();
+	$.ready(function() {
+		var userPicker = new $.PopPicker();
+		userPicker.setData([{
+			value: '1',
+			text: '中国银行'
+		}, {
+			value: '2',
+			text: '中国建设银行'
+		}, {
+			value: '3',
+			text: '中国农业银行'
+		}, {
+			value: '4',
+			text: '邮政储蓄银行'
+		}]);
+		var showUserPickerButton = doc.getElementById('showUserPicker');
+		var userResult = doc.getElementById('showUserPicker');
+		showUserPickerButton.addEventListener('tap', function(event) {
+			userPicker.show(function(items) {
+				userResult.value = items[0].text;
+				//返回 false 可以阻止选择框的关闭
+				//return false;
+			});
+		}, false);				
+	});
+})(mui, document);
+// 提交加载状态
+mui(document.body).on('tap', '.mui-btn-block', function(e) {    
+		mui(this).button('loading');
+		setTimeout(function() {
+		 	document.getElementById('submit1').click();
+		 	mui(this).button('reset');
+		}.bind(this), 2000);
+});
+</script>
+</body>
+</html>

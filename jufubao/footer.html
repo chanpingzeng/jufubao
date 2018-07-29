@@ -1,0 +1,30 @@
+<nav class="mui-bar mui-bar-tab" id="bottom">
+	<a class="mui-tab-item mui-active" href="newhomepage">
+		<span class="mui-icon mui-icon-home"></span>
+		<span class="mui-tab-label">首页</span>
+	</a>
+	<a class="mui-tab-item" href="mall">
+		<span class="mui-icon mui-icon-extra mui-icon-extra-gift"></span>
+		<span class="mui-tab-label">商城</span>
+	</a>
+	<a class="mui-tab-item" href="shopping">
+		<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">9</span></span>
+		<span class="mui-tab-label">购物车</span>
+	</a>
+	<a class="mui-tab-item" href="my">
+		<span class="mui-icon mui-icon-contact"></span>
+		<span class="mui-tab-label">我的</span>
+	</a>
+</nav>
+<script type="text/javascript">
+(function($){
+    if(typeof($) === 'undefined') return;
+    $("#bottom").on('tap',"a",function(){
+        var $u = this.href;
+        $.openWindow({
+            url : $u,
+            id : $u
+        });
+    });
+})(window.mui || mui);
+</script>

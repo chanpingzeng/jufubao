@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>提现</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/iconfont.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<script type="text/javascript" class="sc" src="./static/js/mui.js"></script>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav bar-nav-color">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="javascript:history.back(-1)"></a>
+	<h1 class="mui-title">提现</h1>
+</header>
+<div class="mui-content">
+	<form action="">
+		<ul class="mui-table-view color_239">
+			<li class="mui-table-view-cell color_255">
+				<span>总数：<span id="money">12354.01</span></span>
+				<span class="mui-pull-right my_color_blue" onclick="gorecord()">记录</span>
+			</li>
+			<li class="mui-table-view-cell mui-media color_255">
+				<div class="mui-media-body">
+					<span>提现金额</span>
+					<div class="">
+						<div class="mui-input-row">
+							<span>￥</span>
+							<input type="text" class="mui-input-clear the_pay_input" placeholder="" autofocus="autofocus" name="money" id="number"><span class="mui-icon mui-icon-clear mui-hidden my_right25"></span>
+							<span class="my_color_blue mui-pull-right my_margin3 getall" onclick="getall()">全部提现</span>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-media color_255">
+				<a href="javascript:;">
+					<div class="mui-media-body">
+						<p class="mui-ellipsis">免费提现额度：<span class="my_color_blue">20000</span></p>
+						<p class="mui-ellipsis">超出部分扣除800元手续费(费率20%)</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+		<button type="submit" id="submit"></button>
+		<button type="button" data-loading-text="提交中" class="mui-btn mui-btn-danger mui-btn-block my_fiexd_b">确认提现</button>
+	</form>
+</div>
+
+<script type="text/javascript">
+// 提交加载状态
+mui(document.body).on('tap', '.mui-btn-block', function(e) {
+		mui(this).button('loading');
+		setTimeout(function() {
+		 	document.getElementById("submit").click();
+		 	mui(this).button('reset');
+		}.bind(this), 2000);
+});
+function getall(){
+	var money = document.getElementById('money').innerText;
+	document.getElementById('number').value = money;	
+}
+function gorecord(){
+	window.location.href='withdrawal_record.html';
+}
+</script>
+</body>
+</html>

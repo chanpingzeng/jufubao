@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>个人信息</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/iconfont.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<link href="./static/css/mui.picker.min.css" rel="stylesheet" />
+	<style type="text/css">
+	</style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav bar-nav-color">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="javascript:history.back(-1)"></a>
+	<h1 class="mui-title">个人信息</h1>
+</header>
+<div class="mui-content">
+<form action="">
+	<ul class="mui-table-view my_backcolor_white">
+		<li class="mui-table-view-cell mui-media" id="change_head">
+			<a href="javascript:;" class="mui-navigate-right">
+				<img class="mui-pull-left my_imgw50" src="./static/img/wupay.png" id="head_i">
+				<div class="my_headi">
+					幸福
+				</div>
+			</a>
+			<input name="head_img" type="file" accept="image/*" id="img1_input">
+		</li>
+		<li class="mui-table-view-cell"  id="birthday" data-options='{"type":"date","beginYear":1930,"endYear":2018}'>
+			<a href="#" class="mui-navigate-right">
+			  	<div class="mui-col-sm-8 mui-col-xs-7 mui-pull-right" id="day">1994-05-17</div>
+			  	<div class="mui-col-sm-4 mui-col-xs-5 mui-pull-right">生日</div>
+			  	<input type="hidden" value="1994-05-17" id="birth">
+		  	</a>
+		</li>
+		<li class="mui-table-view-cell"  id="showUserPicker">
+			<a href="#" class="mui-navigate-right">
+			  	<div class="mui-col-sm-8 mui-col-xs-7 mui-pull-right" id="professional">男</div>
+			  	<div class="mui-col-sm-4 mui-col-xs-5 mui-pull-right">性别</div>
+			  	<input type="hidden" value="男" id="sex">
+		  	</a>
+		</li>
+ 		<li class="mui-table-view-cell" id="showCityPicker3">
+	 		<a href="#" class="mui-navigate-right">
+			  	<div class="mui-col-sm-8 mui-col-xs-7 mui-pull-right" id="cityText">梅江区</div>
+			  	<div class="mui-col-sm-4 mui-col-xs-5 mui-pull-right">所在区域</div>
+			  	<input type="hidden" value="梅江区" id="area">
+		  	</a>
+		</li>
+ 		<li class="mui-table-view-cell">
+		  	<div class="mui-col-sm-8 mui-col-xs-7 mui-pull-right">15219706758</div>
+		  	<div class="mui-col-sm-4 mui-col-xs-5 mui-pull-right">手机号码</div>
+		</li>
+ 		<li class="mui-table-view-cell">
+		  	<div class="mui-col-sm-8 mui-col-xs-7 mui-pull-right">2018-01-01</div>
+		  	<div class="mui-col-sm-4 mui-col-xs-5 mui-pull-right">注册时间</div>
+		</li>
+		<li class="mui-table-view-cell">
+		  	<div class="mui-col-sm-8 mui-col-xs-7 mui-pull-right">2018-01-01 14:20:53</div>
+		  	<div class="mui-col-sm-4 mui-col-xs-5 mui-pull-right">最后一次登录</div>
+		</li>
+	</ul>
+</div>
+<button type="submit1" id="submit1"></button>
+<button type="button" data-loading-text="提交中" class="mui-btn mui-btn-danger mui-btn-block bottom_button1">保存</button>
+</form>
+<script type="text/javascript" class="sc" src="./static/js/mui.min.js"></script>
+<script src="./static/js/mui.picker.min.js"></script>
+<script src="./static/js/mui.poppicker.js"></script>
+<script type="text/javascript" class="sc" src="./static/js/city.data-3.js"></script>
+<script>
+(function($, doc) {
+	$.init();
+	$.ready(function() {
+		var userPicker = new $.PopPicker();
+		userPicker.setData([{
+			value: 'man',
+			text: '男'
+		}, {
+			value: 'weman',
+			text: '女'
+		}]);
+		var showUserPickerButton = doc.getElementById('showUserPicker');
+		var userResult = doc.getElementById('professional');
+		var sex = doc.getElementById('sex');
+		showUserPickerButton.addEventListener('tap', function(event) {
+			userPicker.show(function(items) {
+				userResult.innerText = items[0].text;
+				sex.value = items[0].text;
+				//返回 false 可以阻止选择框的关闭
+				//return false;
+			});
+		}, false);
+		// 3级地区					
+		var cityPicker3 = new $.PopPicker({
+			layer: 3
+		});
+		cityPicker3.setData(cityData3);
+		var showCityPickerButton = doc.getElementById('showCityPicker3');
+		var cityResult3 = doc.getElementById('cityText');
+		var area = doc.getElementById('area');
+		showCityPickerButton.addEventListener('tap', function(event) {
+			cityPicker3.show(function(items) {
+				// cityResult3.innerText = items[0].text + ">" + items[1].text + ">" + items[2].text;
+				cityResult3.innerText = items[2].text;
+				area.value = items[2].text;
+				//返回 false 可以阻止选择框的关闭
+				//return false;
+			});
+		}, false);
+	});
+})(mui, document);
+// 提交加载状态
+mui(document.body).on('tap', '.bottom_button1', function(e) {    
+		mui(this).button('loading');
+		setTimeout(function() {
+		 	document.getElementById('submit1').click();
+		 	mui(this).button('reset');
+		}.bind(this), 2000);
+});
+// 时间
+(function($) {
+	$.init();
+	var result = $('#day')[0];
+	var btns = $('#birthday')[0];
+	var brith = $('#birth')[0];
+	btns.addEventListener('tap', function() {
+		var _self = this;
+		if(_self.picker) {
+			_self.picker.show(function (rs) {
+				result.innerText = rs.text;
+				brith.value = rs.text;
+				_self.picker.dispose();
+				_self.picker = null;
+			});
+		} else {
+			var optionsJson = this.getAttribute('data-options') || '{}';
+			var options = JSON.parse(optionsJson);
+			var id = this.getAttribute('id');
+			_self.picker = new $.DtPicker(options);
+			_self.picker.show(function(rs) {
+				result.innerText = rs.text;
+				brith.value = rs.text;
+				_self.picker.dispose();
+				_self.picker = null;
+			});
+		}		
+	}, false);
+})(mui);
+
+(function(){
+	// 换头像
+	document.getElementById('change_head').addEventListener('tap',function(){
+		document.getElementById('img1_input').click();
+	});	
+	document.getElementById("img1_input").addEventListener("change",function(e){
+		var a = '';
+	    if (typeof (this.files[0]) != 'undefined') {
+		    var a = URL.createObjectURL(this.files[0]);
+		    console.log(a)
+			document.getElementById('head_i').src = a;
+		}
+	});
+}())
+</script>
+</body>
+</html>

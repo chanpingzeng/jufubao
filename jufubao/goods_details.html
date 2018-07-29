@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>商品详情</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/iconfont.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<link href="./static/css/font-awesome.min.css" rel="stylesheet">
+	<script type="text/javascript" class="sc" src="./static/js/mui.min.js"></script>
+ 	<script src="./static/js/jquery-3.2.1.min.js"></script>
+ 	<link rel="stylesheet" href="./static/css/swiper.min.css">
+ 	<script src="./static/js/swiper.min.js"></script>
+	<style type="text/css">
+	    body {
+	      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	      font-size: 14px;
+	      color:#000;
+	      margin: 0;
+	      padding: 0;
+		  background-color: rgb(245,245,245);		
+
+	    }
+	    /*不可移动代码*/
+	   	.swiper-wrapper .swiper-slide img{
+	    	width: 100%;
+	    }
+	    .swiper-container-horizontal>.swiper-pagination-bullets{
+	    	bottom:33px;
+	    }
+	    .fz_left_black{
+	    	text-align: left!important;
+	    	color: black!important;
+	    }
+	    .my_chocie_box{
+    	    padding: 5px 17px;
+		    display: inline-block;
+		    background-color: #b5adad;
+		    border-radius: 12px;
+	        margin: 5px;
+	    }
+	</style>
+</head>
+<body>
+ <div class="swiper-container">
+  	<div class="swiper-wrapper">
+	    <div class="swiper-slide"><img class="" src="./static/img/img1.jpg"></div>
+	    <div class="swiper-slide"><img class="" src="./static/img/img1.jpg"></div>
+	    <div class="swiper-slide"><img class="" src="./static/img/img1.jpg"></div>
+  	</div>
+    <div class="swiper-pagination"></div>
+</div>
+<div class="top_button">
+	<div class="top_button_left my_img_w45 my_black_b05">
+		<a href="javascript:history.back(-1)">
+			<i class="fa fa-angle-left my_color_w" aria-hidden="true"></i>
+		</a>
+	</div>
+	<!-- 分享 -->
+<!-- 	<div class="top_button_right my_img_w45 my_black_b05">
+		<a href="">
+			<i class="fa fa-ellipsis-h my_color_w" aria-hidden="true"></i>
+		</a>
+	</div> -->
+</div>
+<div class="fang_flaft color_255">
+	<div class="fang_flaft_left">
+		<div class="fang_flaft_left_tittle">
+			HBuilder是当前最快的HTML开发工具,强大的代码助手帮你快速完成
+		</div>
+	</div>
+	<div class="fang_flaft_right">
+		<i class="fa fa-share-alt" aria-hidden="true"></i>
+		<div class="fang_flaft_right_t">分享</div>
+	</div>
+</div>
+<div class="color_255 box_1">
+	<div class="countdown" id="timer" data-timer="20180428140203">
+		<span class="countdown_1 countdown_time_t" date="10">离活动结束时间剩余<span id="timer_d">10</span>天</span>
+		<!-- 隐藏的天数 -->
+		<span class="countdown_2 countdown_time_s" id="timer_h">0</span>
+		<span class="countdown_2 countdown_time_f" id="timer_m">0</span>
+		<span class="countdown_2 countdown_time_m" id="timer_s">0</span>
+	</div>
+	<div class="my_money underline">
+		<span class="my_money_new">￥229.00</span>
+		<span class="my_money_old">￥139.00</span>
+	</div>
+	<ul class="mui-table-view">
+		 <li class="mui-table-view-cell top_underline" data-toggle="modal" data-target="#myModal" onclick="choice()">
+			<a href="#" class="mui-navigate-right">
+		 		<span id="the_chocie">请选择尺码，颜色分类，购买数量</span>
+	 		</a>
+		 </li>
+	</ul>
+</div>
+<div class="recommend_box color_255 my_clear top_underline">
+	<div class="recommend_box_tittle">
+		相关搭配
+	</div>
+	<ul class="recommend_box_img">
+		<li class="recommend_box_img_img">
+			<div class="recommend_box_img_box">
+				<a href="">
+					<img src="./static/img/wupay.png" alt="">
+					<div class="recommend_box_img_t">￥159.00</div>
+				</a>
+			</div>
+		</li>
+		<li class="recommend_box_img_img">
+			<div class="recommend_box_img_box">
+				<a href="">
+					<img src="./static/img/wupay.png" alt="">
+					<div class="recommend_box_img_t">￥159.00</div>
+				</a>
+			</div>
+		</li>
+		<li class="recommend_box_img_img">
+			<div class="recommend_box_img_box">
+				<a href="">
+					<img src="./static/img/wupay.png" alt="">
+					<div class="recommend_box_img_t">￥159.00</div>
+				</a>
+			</div>
+		</li>
+		<li class="recommend_box_img_img">
+			<div class="recommend_box_img_box">
+				<a href="">
+					<img src="./static/img/wupay.png" alt="">
+					<div class="recommend_box_img_t">￥159.00</div>
+				</a>
+			</div>
+			
+		</li>
+	</ul>
+</div>
+<div class="jiazai"><em></em><span class="color_0">图文详情</span><em></em></div>
+<div class="content">
+	<div class="mui-content-padded">
+		<p>这是图片放大预览示例，点击如下图片体验全屏预览功能</p>
+		<p>
+			<img src="./static/img/shili.jpg" data-preview-src="" data-preview-group="1">
+		</p>
+		<p>图片全屏后，双击或双指缩放均可对图片进行放大、缩小操作，左右滑动可查看同组(data-preview-group相同的图片为一组)其它图片，点击会关闭预览</p>
+		<p>
+			<img src="./static/img/shili.jpg" data-preview-src="" data-preview-group="1">
+		</p>
+		<p>第三张图片，纯粹为了占位： </p>
+		<p>
+			<img src="./static/img/shili.jpg" data-preview-src="" data-preview-group="1">
+		</p>
+	</div>
+</div>
+
+<div class="foot_buy my_black_b255">
+	<div class="foot_buy_logo">
+		<div>
+			<img src="./static/img/wupay.png" alt="">
+			<!-- <span class="mui-badge mui-badge-warning">0</span> -->
+			<span class="mui-badge mui-badge-warning">3</span>
+		</div>
+	</div>
+	<div class="add_shop_car">
+		+&nbsp;购物车
+	</div>
+	<div class="foot_buy_now_buy my_color_w">
+		立即购买
+	</div>
+</div>
+<!-- 底部弹起 -->
+<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
+    <!-- 可选择菜单 -->
+<div style="width: 100%;height: 500px;background-color: white;">
+	<ul class="mui-table-view color_255">
+		<li class="mui-table-view-cell">
+	       <a class="mui-icon mui-icon-close mui-pull-right" href="#sheet1"></a>
+	    </li>
+    </ul>
+    <div>
+	    <dl class="mui-content-padded"  id="select">
+		   <dt>颜色分类</dt>
+		   <dd class="my_chocie_box" value="0">黄色</dd>
+		   <dd class="my_chocie_box">红色</dd>
+		   <dd class="my_chocie_box">红色</dd>
+		   <dd class="my_chocie_box">红色</dd>
+		   <dd class="my_chocie_box">红色</dd>
+		   <dd class="my_chocie_box">五颜六色</dd>
+		   <input type="hidden">
+		</dl>
+	</div>
+	<div class="mui-content-padded my_margin_top40 my_clear">
+        <span class="mui-pull-left my_margin_top8">购买数量</span>
+        <div class="mui-numbox mui-pull-right">
+			<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+			<input class="mui-input-numbox" type="number" value="1">
+			<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+		</div>
+	</div>
+</div>
+</div>
+<div class="my_blank_50"></div>
+<script type="text/javascript" src="./static/js/good.js"></script>
+</body>
+</html>

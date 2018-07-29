@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>购物车</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/icons-extra.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+</head>
+<body>
+<header class="mui-bar mui-bar-nav bar-nav-color">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="back"></a>
+	<h1 class="mui-title">购物车</h1>
+</header>
+<div class="mui-content">
+<form action="#">
+	<p class="mui-content-padded my_text_right margin_r5" id="eduit">编辑</p>
+	<ul class="mui-table-view color_255" id="item_list">
+		<li class="my_clear shop_box underline" id="item_1">
+		 	<div class="mui-checkbox mui-left">
+				<input name="id[]" value="2" type="checkbox" checked="" class="shop-check">
+			</div>
+			<div class="mui-media mui-col-sm-10 mui-col-xs-10 mui-pull-right">
+				<div class="mui-media-object mui-pull-left shop_img">
+					<img class="shop_img_i" src="./static/img/wupay.png">
+				</div>
+				<div class="mui-media-body">
+					<div class="shop_text">
+						<p class="mui-ellipsis my_color_b">但名字重复的却很多</p>
+						<div>
+							<span>500</span><span class="mui-pull-right number">4</span><span class="mui-icon mui-icon-closeempty mui-pull-right"></span>
+						</div>
+					</div>
+					<div class="shop_del my_clear">
+ 						<button type="button" class="mui-btn mui-btn-danger mui-pull-right delete" date-id="1">删除</button>
+						<div class="mui-numbox" data-numbox-min="1">
+							<button class="mui-btn mui-btn-numbox-minus addN" type="button">-</button>
+							<input name="number[]" class="mui-input-numbox" type="number" / value="4" date-money="500">
+							<button class="mui-btn mui-btn-numbox-plus addN" type="button" date-id="1">+</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+		<li class="my_clear shop_box underline" id="item_2">
+		 	<div class="mui-checkbox mui-left">
+				<input name="id[]" value="2" type="checkbox" checked="" class="shop-check">
+			</div>
+			<div class="mui-media mui-col-sm-10 mui-col-xs-10 mui-pull-right">
+				<div class="mui-media-object mui-pull-left shop_img">
+					<img class="shop_img_i" src="./static/img/wupay.png">
+				</div>
+				<div class="mui-media-body">
+					<div class="shop_text">
+						<p class="mui-ellipsis my_color_b">但名字重复的却很多</p>
+						<div>
+							<span>400</span><span class="mui-pull-right number">5</span><span class="mui-icon mui-icon-closeempty mui-pull-right"></span>
+						</div>
+					</div>
+					<div class="shop_del my_clear">
+ 						<button type="button" class="mui-btn mui-btn-danger mui-pull-right delete" date-id="2">删除</button>
+						<div class="mui-numbox" data-numbox-min="1">
+							<button class="mui-btn mui-btn-numbox-minus addN" type="button">-</button>
+							<input name="number[]" class="mui-input-numbox" type="number" / value="5" date-money="400">
+							<button class="mui-btn mui-btn-numbox-plus addN" type="button" date-id="2">+</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+
+	<!-- <div class="my_biglogo">
+		<span class="mui-icon-extra mui-icon-extra-cart my_biglogo_i gray"></span>
+        <h3 class="gray">购物车还是空</h3>
+	</div> -->
+</div>
+<div class="my_fiexd_b my_clear">
+	<div class="mui-input-row mui-checkbox mui-left mui-col-xs-4.5 mui-pull-left" id="allselect">
+		<label class="fz_14">全选</label>
+		<input name="checkbox" value="Item 2" type="checkbox" checked="" class="selectall">
+	</div>
+	<div class="mui-col-xs-7.5 mui-pull-right">
+	<!-- 	<button type="submit" class="mui-btn mui-btn-danger mui-pull-right shop_pay">去结算</button> -->
+	<button class="mui-btn mui-btn-danger mui-pull-right shop_pay">去结算</button>
+		<span class="shop_money mui-pull-right my_color_red" id="money">0</span>
+		<span class="shop_money mui-pull-right my_color_red">总计:</span>
+	</div>
+</div>
+</form>
+<script type="text/javascript" class="sc" src="./static/js/mui.min.js"></script>
+<script type="text/javascript" class="sc" src="./static/js/shop.js"></script>
+</body>
+</html>

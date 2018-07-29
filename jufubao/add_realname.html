@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>实名认证</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/iconfont.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<link href="./static/css/mui.picker.css" rel="stylesheet" />
+	<link href="./static/css/mui.poppicker.css" rel="stylesheet" />
+	<style type="text/css">
+		#img1_input,#img2_input{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav bar-nav-color">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="back"></a>
+	<h1 class="mui-title">实名认证</h1>
+</header>
+<div id="feedback" class="mui-page feedback mui-page-center mui-content" style="">
+<form action="">
+	<div class="mui-table-view-divider fz_14">请填写您的真实信息,通过后将不能更改</div>
+	<ul class="mui-table-view my_backcolor_white">		
+		<li class="mui-table-view-cell my_padding0">
+		 	<div class="mui-input-row">
+				<label>真实姓名</label>
+				<input type="text" class="mui-input-clear"  name="" placeholder="请输入真实姓名"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+			</div>
+		 </li>
+		 <li class="mui-table-view-cell my_padding0">
+		 	<div class="mui-input-row">
+				<label>身份证号</label>
+				<input type="text" class="mui-input-clear"  name="" placeholder="请输入身份证号"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+			</div>
+		 </li>
+	</ul>	
+	<p></p>
+	<div class="mui-table-view-divider fz_14">上传身份证照片</div>
+	<div class="mui-content-padded">
+		<div>
+			<p>
+				<img src="./static/img/id-3.png" class="mui-col-sm-12 mui-col-xs-12" id="img1">
+				<input name="face_card" type="file" accept="image/*" id="img1_input">			
+			</p>
+		</div>
+		<div>
+			<p>
+				<img src="./static/img/id-2.png" class="mui-col-sm-12 mui-col-xs-12" id="img2">
+				<input name="face_card" type="file" accept="image/*" id="img2_input">
+			</p>
+		</div>
+	</div>
+</div>
+<button type="submit1" id="submit1"></button>
+<!-- <button type="button" data-loading-text="提交中" class="mui-btn mui-btn-danger mui-btn-block bottom_button1">提交申请</button> -->
+</form>
+
+<script type="text/javascript" class="sc" src="./static/js/mui.js"></script>
+<script>
+(function(){
+	// 正面
+	document.getElementById('img1').addEventListener('tap',function(){
+		document.getElementById('img1_input').click();
+	});	
+	document.getElementById("img1_input").addEventListener("change",function(e){
+		var a = '';
+	    if (typeof (this.files[0]) != 'undefined') {
+		    var a = URL.createObjectURL(this.files[0]);
+		    console.log(a)
+			document.getElementById('img1').src = a;
+		}
+	});
+	// 反面
+	document.getElementById('img2').addEventListener('tap',function(){
+		document.getElementById('img2_input').click();
+	});	
+	document.getElementById("img2_input").addEventListener("change",function(e){
+		var a = '';
+	    if (typeof (this.files[0]) != 'undefined') {
+		    var a = URL.createObjectURL(this.files[0]);
+		    console.log(a)
+			document.getElementById('img2').src = a;
+		}
+	});
+}());
+</script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>注册登录</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/iconfont.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<script type="text/javascript" class="sc" src="./static/js/mui.js"></script>
+	<style type="text/css">
+		.my_box{
+			text-align: center;
+			padding: 8%;
+			position: absolute;
+	        top: 50%;
+	        transform: translateY(-50%);
+		}
+		.my_box_head{
+		    font-size: 2em;
+		    padding: 5% 0;
+		    letter-spacing: 3px;
+		}
+		.my_box_foot_span{
+		    padding: 10px 14%;
+		    background-color: rgb(1,153,1);
+		    border:0!important;
+	        border-radius: 6px;
+		}
+		.my_box_body{
+		    margin: 5% 0;
+		}
+		.my_box_body_input{
+		    text-align: center;
+		    border:0!important;
+		    height: 48px!important;
+		}
+	</style>
+</head>
+<body class="color_blue">
+<form id="mb_from" action="">
+	<div class="my_box mui-col-sm-12 mui-col-xs-12">
+		<div class="my_box_head">
+			<div class="my_color_w">注册&登录</div>
+		</div>
+		<div class="my_box_body">
+			<input id="mobile" name="mobile" type="text" class="my_box_body_input" placeholder="请输入手机号码">
+		</div>
+		<div class="my_box_foot">
+			<input id="action" type="hidden" name="action">
+			<input id="submit" type="submit" class="mui-btn mui-btn-success my_box_foot_span my_border0 mui-hidden" >
+		</div>
+	</div>
+</form>
+
+
+<script type="text/javascript">
+function checkmobiel(str){
+	var reg = /^1[3578]{1}[0-9]{9}|14(5|7)[0-9]{8}$/;
+	return reg.test(str);
+}
+var flag = 1;
+mui("#mb_from").on("keyup","#mobile",function(){
+	var m = this.value;
+	if (checkmobiel(m) && flag) {
+		flag = 0;
+		mui.ajax({
+			url:"region_mobile.json",
+			data:{"mobile":m},
+			type:"post",
+			dataType:"JSON",
+			processData:true,
+			succes:function(res){
+				flag = 1;
+				if (res.code == 200) {
+					mui("#action").val(res.data);
+					mui("#submit").removeClass("mui-hidden").val(res.msg);
+				} else {
+					mui("#action").val("");
+					mui("#submit").addClass("mui-hidden");
+					alert(res.msg);
+				}
+			},error:function(xhr,type,errorThrown){
+				//alert(type);
+				alert("连接错误，请检查本地网络后刷新页面！");
+			},timeout:3000
+		});
+	}
+});
+</script>
+</body>
+</html>

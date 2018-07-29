@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>赠送积分</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/iconfont.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<script type="text/javascript" class="sc" src="./static/js/mui.js"></script>
+	<style type="text/css">	
+	.mui-input-row .the_pay_input{width: 100%}
+	</style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav bar-nav-color">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="javascript:history.back(-1)"></a>
+	<h1 class="mui-title">赠送积分</h1>
+</header>
+<div class="mui-content">
+	<form action="http://www.baidu.com/" id="payfrom">
+		<ul class="mui-table-view color_255">
+			<li class="mui-table-view-cell mui-media">
+				<div class="mui-media-body">
+					<span>赠送积分</span>
+						<div class="mui-input-row">
+							<input id="integral" type="text" class="mui-input-clear the_pay_input" disabled="disabled">
+						</div>
+				</div>
+			</li>
+			<li class="mui-table-view-cell my_padding0">
+				<div class="mui-input-row">
+					<label>会员帐号</label>
+					<input type="text" value="13823890041" disabled="disabled">
+				</div>
+			</li>
+			<li class="mui-table-view-cell my_padding0">
+			 	<div class="mui-input-row">
+					<label>支付费用</label>
+					<input type="text" class="mui-input-clear" id="money" name="money" placeholder="请输入金额">
+				</div>
+			</li>				
+			<li class="mui-table-view-cell mui-media">
+				<div class="mui-media-body">
+					<p class="mui-ellipsis">当前余额：<span class="my_color_blue">8000</span></p>
+				</div>
+			</li>
+		</ul>
+		<input type="hidden" name="user_id" value="55"/>
+		<!-- <footer class="mui-"> -->
+		<button type="button" data-loading-text="正在提交" class="mui-btn mui-btn-primary mui-btn-block bottom_button1">确认赠送</button>
+		<!-- </footer> -->
+	</form>
+</div>
+
+<script type="text/javascript">
+// 提交加载状态
+mui(document.body).on('tap', '.mui-btn-block', function(e) {
+		mui(this).button('loading');
+		setTimeout(function() {
+		 	document.getElementById("payfrom").submit();
+		 	mui(this).button('reset');
+		}.bind(this), 500);
+});
+mui(document.body).on("keyup","#money",function(){
+	var $i = document.getElementById("integral");
+	var $v = this.value;
+	if($v<0 || isNaN($v)) {
+		$v = 0;
+		this.value = '';
+	}
+	$i.value = $v * 3;
+});
+mui(document.body).on("tap",".mui-icon-clear",function(){
+	document.getElementById("integral").value = document.getElementById("money").value*3;
+});
+</script>
+</body>
+</html>

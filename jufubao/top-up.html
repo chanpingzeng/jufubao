@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>充值</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/iconfont.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<script type="text/javascript" class="sc" src="./static/js/mui.min.js"></script>
+	<script type="text/javascript" class="sc" src="./static/js/mui.js"></script>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+<form action="" class="mui-input-group">
+<header id="header" class="mui-bar mui-bar-nav bar-nav-color">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="javascript:history.back(-1)"></a>
+	<h1 class="mui-title">充值</h1>
+</header>
+<div class="mui-content color_255">
+	<div class="mui-input-row  underline">
+		<label class="the_input1_label">金额:￥</label>
+		<span class="my_recode" onclick="gorecord()">记录</span>
+		<div>
+			<input type="text" class="mui-input-clear the_input1" placeholder="请输入充值金额" name="amount"><span class="mui-icon mui-icon-clear mui-hidden my_right25"></span>
+		</div>
+		
+	</div>
+	<input type="hidden" name="" value="">
+	<h5 class="mui-content-padded">充值方式</h5>
+	<div class="mui-card">
+		<div class="mui-input-row mui-radio underline">
+			<label>微信</label>
+			<input name="radio1" type="radio" value="1" checked="true">
+		</div>
+		<div class="mui-input-row mui-radio underline">
+			<label>支付宝</label>
+			<input name="radio1" type="radio" value="2">
+		</div>
+		<div class="mui-input-row mui-radio">
+			<label>银行汇款/转账</label>
+			<input name="radio1" type="radio" value="3">
+		</div>
+		<div class="mui-input-row mui-radio">
+			<label>代金券(通用)</label>
+			<input name="radio1" type="radio" value="4">
+		</div>
+	</div>
+	<button type="submit" id="submit"></button>
+	<button type="button" data-loading-text="提交中" class="mui-btn mui-btn-danger mui-btn-block my_fiexd_b">确认充值</button>
+</div>
+</form>
+<script type="text/javascript">
+// 提交加载状态
+mui(document.body).on('tap', '.mui-btn-block', function(e) {
+		mui(this).button('loading');
+		setTimeout(function() {
+		 	document.getElementById("submit").click();
+		 	mui(this).button('reset');
+		}.bind(this), 2000);
+});
+function gorecord(){
+	window.location.href='recharge_record.html';
+}
+</script>
+</body>
+</html>

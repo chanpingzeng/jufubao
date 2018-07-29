@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>商品列表</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/iconfont.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<link href="./static/css/font-awesome.min.css" rel="stylesheet">
+	<script type="text/javascript" class="sc" src="./static/js/mui.min.js"></script>
+	<style type="text/css">
+		body{
+			height: 100%;
+			background-color: rgb(245,245,249);
+			font-size: 17px!important;	
+		}
+	</style>
+</head>
+<body>
+<div class="big_jianbian my_clear">
+	<header class="mui-bar mui-bar-nav big_jianbian">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left my_color_w" id="back"></a>
+	    <div class="mui-input-row mui-search head-seach mui-col-sm-10 mui-col-xs-9 margin_l8">
+	    	<input type="search" class="mui-input-clear my_color_w" placeholder="请输入商品名称">
+	    </div>
+  		<a class="mui-icon mui-icon-chat my_color_w mui-pull-right" href=""></a>
+	</header>
+</div>
+<div id="slider" class="mui-slider underline my_margin_top40" data-slider="4">
+	<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		<a class="mui-control-item my_active" href="">
+			综合排序
+		</a>
+		<a class="mui-control-item" href="">
+			销售排序
+		</a>
+		<a class="mui-control-item" href="">
+			新品上架
+		</a>
+		<a class="mui-control-item" href="#" onclick="showMask()">
+			筛选
+		</a>
+	</div>
+</div>
+<ul class="mui-table-view mui-grid-view">
+    <li class="mui-table-view-cell mui-media mui-col-xs-6 my_text_left">
+        <a href="./goods_details.html">
+            <img class="mui-media-object" src="./static/img/img1.jpg">
+            <div class="mui-media-body">幸福就是可以一起睡觉</div>
+            <div class="my_margin_top3 my_color_blue fz_14">￥500</div>
+        </a>
+    </li>
+    <li class="mui-table-view-cell mui-media mui-col-xs-6 my_text_left">
+        <a href="./goods_details.html">
+            <img class="mui-media-object" src="./static/img/img1.jpg">
+            <div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div>
+             <div class="my_margin_top3 my_color_blue fz_14">￥500+500代金券</div>
+        </a>
+    </li>
+    <li class="mui-table-view-cell mui-media mui-col-xs-6 my_text_left">
+        <a href="./goods_details.html"><img class="mui-media-object" src="./static/img/img1.jpg">
+            <div class="mui-media-body">Color of SIP CBD</div>
+            <div class="my_margin_top3 my_color_blue fz_14">￥500</div>
+        </a>
+    </li>
+    <li class="mui-table-view-cell mui-media mui-col-xs-6 my_text_left">
+        <a href="./goods_details.html">
+            <img class="mui-media-object" src="./static/img/img1.jpg">
+            <div class="mui-media-body">静静看这世界</div>
+            <div class="my_margin_top3 my_color_blue fz_14">￥500</div>
+        </a>
+    </li>
+</ul>
+<div class="my_havd_none_many">
+	没有更多了
+</div>
+<!-- 增加隐藏部分 -->
+<div id="shaixuan">
+	<ul class="mui-table-view">
+		 <li class="mui-table-view-cell"><a href="">现金</a></li>
+	     <li class="mui-table-view-cell"><a href="">积分</a></li>
+	     <li class="mui-table-view-cell"><a href="">现金加积分</a></li>
+	</ul>
+</div>
+	<script type="text/javascript">
+	var choice = document.getElementById('shaixuan');
+		// 打开遮罩
+		function showMask(){
+			var mask = mui.createMask(callback);//callback为用户点击蒙版时自动执行的回调；
+			mask.show();//显示遮罩
+			choice.style.display='block';
+		}
+		// 关闭遮罩
+		function callback(){
+			var mask = mui.createMask();//callback为用户点击蒙版时自动执行的回调；
+			mask.close();//影藏遮罩
+			choice.style.display='none';
+		}
+		$(function(){
+			// 启动左右滑栏
+			$('.wrapper').navbarscroll(); 
+		})
+	</script>
+</body>
+</html>

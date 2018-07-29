@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>确认订单</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<style type="text/css">
+		.sale{
+			display: none;
+		}
+	</style>
+</head>
+<body class="fz_14">
+<header class="mui-bar mui-bar-nav bar-nav-color">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="back"></a>
+	<h1 class="mui-title">确认订单</h1>
+</header>
+<div class="mui-content">
+	<div class="addres">
+		<a href="">
+			<span class="my_color_w fz_17">收货人:222</span>
+			<div>
+				<span class="my_color_w">收货地址:广东恩华4楼技术部</span>
+				<span class="mui-icon mui-icon-compose mui-pull-right my_color_b"></span>
+			</div>
+		</a>
+	</div>
+	<ul class="mui-table-view my_backcolor_white my_margin_top3">
+		 <li class="mui-table-view-cell">
+		 	<a href="#" class="">
+		 		<i class="my_fo my_ifo_back"></i>
+		 		<span>返回购物车</span>
+		 		<span class="mui-pull-right gray">修改购物车信息</span>
+			</a>
+		 </li>
+	</ul>
+
+	<ul class="mui-table-view my_backcolor_white my_margin_top3">
+		<li class="mui-table-view-cell my_margin_top3">
+			<div class="mui-media mui-col-sm-12 mui-col-xs-12 mui-pull-right">
+				<div class="mui-media-object mui-pull-left shop_img">
+					<img class="shop_img_i" src="./static/img/wupay.png">
+				</div>
+				<div class="mui-media-body">
+					<div class="shop_text">
+						<div>
+							<span class="">沪地区首重15元/KG</span><span class="mui-pull-right">5000</span>
+						</div>
+						<div>
+							<span class="mui-pull-right">2</span>
+							<span class="mui-icon mui-icon-closeempty mui-pull-right"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+        </li>
+		<!-- <li class="mui-table-view-cell mui-collapse">
+			<a class="mui-navigate-right" href="#">
+	        	<i class="my_fo my_ifo_yh"></i>
+				<span>使用店铺优惠劵</span>
+	        </a>
+	        <div class="mui-collapse-content">
+	        	<div class="border">
+		        	<select class="mui-btn">
+						<option value="item-1">item-1</option>
+						<option value="item-2">item-2</option>
+						<option value="item-3">item-3</option>
+						<option value="item-4">item-4</option>
+						<option value="item-5">item-5</option>
+					</select>
+	        	</div>            
+	            <div class="my_margin_top8">或<span class="orange margin_l8 use_sale">直接输入优惠卷号</span></div>
+	            <div class="sale">
+	            	<input type="text" class="mui-input-password mui-col-xs-8">
+	            	<button type="button" class="mui-btn mui-btn-danger">使用</button>
+	            </div>
+            </div>
+        </li> -->
+        <li class="mui-table-view-cell">
+			<a class="" href="#">
+	        	<i class="my_fo my_ifo_ps"></i>
+				<span>选择配送方式</span>
+	        </a>
+	        <div class="mui-collapse-content">
+	        	<div class="mui-content-padded">
+	        		<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">普通快递</button>
+	        	</div>
+	        	<p>江、浙、沪地区首重15元/KG，续重2元/KG，其余城市首重20元/KG 运费15.00 </p>
+            </div>
+        </li>
+	</ul>
+
+
+
+	<ul class="mui-table-view my_backcolor_white my_margin_top3">
+		<li class="mui-table-view-cell my_margin_top3">
+		 	<a href="#" class="">
+		 		<i class="my_fo my_ifo_fp"></i>
+				<span>开发票</span>
+				<div class="mui-switch mui-switch-mini mui-active ">
+					<div class="mui-switch-handle"></div>
+				</div>
+			</a>
+		</li>
+        <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">
+            	<i class="my_fo my_ifo_time"></i>
+				<span>送货时间</span>
+				<span class="mui-pull-right gray margin_r5">请选择送货时间</span>
+            </a>
+            <div class="mui-collapse-content">
+                <div class="mui-card mui-input-group">
+					<div class="mui-input-row mui-radio mui-left">
+						<label>仅工作日送货</label>
+						<input name="radio1" type="radio" checked="">
+					</div>
+					<div class="mui-input-row mui-radio mui-left">
+						<label>仅周末送货</label>
+						<input name="radio1" type="radio">
+					</div>
+					<div class="mui-input-row mui-radio mui-left">
+						<label>工作日/周末/假日均可</label>
+						<input name="radio1" type="radio">
+					</div>
+					<div class="mui-input-row mui-radio mui-left">
+						<label>指定送货时间</label>
+						<input name="radio1" type="radio">
+					</div>
+				</div>
+            </div>
+        </li>
+        <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">
+            	<i class="my_fo my_ifo_qh"></i>
+				<span>缺货处理</span>
+				<span class="mui-pull-right gray margin_r5">缺货处理</span>
+            </a>
+            <div class="mui-collapse-content">
+                <div class="mui-card mui-input-group">
+					<div class="mui-input-row mui-radio mui-left">
+						<label>等待所有商品备齐后再发</label>
+						<input name="radio2" type="radio" checked="">
+					</div>
+					<div class="mui-input-row mui-radio mui-left">
+						<label>取消订单</label>
+						<input name="radio2" type="radio">
+					</div>
+					<div class="mui-input-row mui-radio mui-left">
+						<label>与店主协商</label>
+						<input name="radio2" type="radio">
+					</div>
+				</div>
+            </div>
+        </li>
+        <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">
+            	<i class="my_fo my_ifo_qt"></i>
+				<span>订单备注</span>
+            </a>
+            <div class="mui-collapse-content">
+				<textarea id="textarea" rows="2" placeholder="请输入订单备注"></textarea>
+            </div>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="">
+            	<i class="my_fo my_ifo_ye"></i>
+				<span>支付方式</span>
+            </a>
+        	<div class="mui-input-group my_margin_top3">
+				<div class="mui-input-row mui-radio mui-left">
+					<label>余额(￥0.00)</label>
+					<input name="radio3" type="radio" checked="">
+				</div>
+				<div class="mui-input-row mui-radio mui-left">
+					<label>积分(￥0.00)</label>
+					<input name="radio3" type="radio">
+				</div>
+			</div>
+        </li>
+	</ul>
+	<ul class="mui-table-view my_backcolor_white my_margin_top3">
+		 <li class="mui-table-view-cell">
+		 	<a href="#" class="mui-pull-right gray">
+		 		*该订单完成后，您将获得 128.00 未分享积分
+			</a>
+		 </li>
+		 <li class="mui-table-view-cell">
+		 	<a href="#" class="mui-pull-right gray">
+		 		商品总价；
+		 		<span class="fz_17 my_color_red">888</span>
+			</a>
+		 </li>
+	</ul>
+</div>
+<div class="mui-content-padded">		
+	<button type="" class="mui-btn color_blue mui-btn-block my_color_w">提交订单</button>
+</div>
+<script type="text/javascript" class="sc" src="./static/js/mui.js"></script>
+<script type="text/javascript">
+(function($){
+	$(".use_sale").on('tap',function(){
+		$(".sale")[0].style.display = 'block';
+	});
+	$(document.body).on('tap',".addres",function(){
+		window.location.href = "./manage_address.html"
+	});
+}(mui));
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>帐号升级</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="./static/css/mui.min.css" rel="stylesheet">
+	<link href="./static/css/iconfont.css" rel="stylesheet">
+	<link href="./static/css/zp.css" rel="stylesheet">
+	<link href="./static/css/mui.picker.css" rel="stylesheet" />
+	<link href="./static/css/mui.poppicker.css" rel="stylesheet" />
+	<script type="text/javascript" class="sc" src="./static/js/mui.min.js"></script>
+	<script src="./static/js/mui.picker.js"></script>
+	<script src="./static/js/mui.poppicker.js"></script>
+	<script src="./static/js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./static/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">	
+	</style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav bar-nav-color">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="javascript:history.back(-1)"></a>
+	<h1 class="mui-title">帐号升级</h1>
+</header>
+<div class="mui-content">
+	<form action="">
+		<ul class="mui-table-view underline">
+			<li class="mui-table-view-cell">
+				<a href="#about" class="mui-navigate-right" id='showUserPicker'>帐号类型 <span class="the_chocie" id="typeText">请选择</span></a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="#about" class="mui-navigate-right" id='cityChoose'>申请业务地区<span class="the_chocie" id="cityText">请选择</span></a>
+			</li>		
+		</ul>
+		<div class="mui-input-row color_255">
+			<label>联系电话:</label>
+			<input type="text" class="mui-input-clear" placeholder="123456789" data-input-clear="5" name="tel" id="tel"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+		</div>
+		<div class="read_agreement my_padding3">
+			<div class="mui-input-row mui-radio mui-left">
+				<label>已详细阅读并同意接受<a href="">《帐号升级协议》</a></label>
+				<input name="radio1" type="radio" id="read">
+			</div>
+		</div>
+		<!-- 账号类型  和地区 -->
+		<input type="hidden" name="typeText" id="type">
+		<input type="hidden" name="typeText" id="city">				
+		<button type="submit" id="submit"></button>
+		<button type="button" data-loading-text="提交中" class="mui-btn mui-btn-danger mui-btn-block">提交申请</button>
+	</form>
+</div>
+<script type="text/javascript">
+	(function($, doc) {
+		$.init();
+		$.ready(function() {
+			//普通示例
+			var userPicker = new $.PopPicker();
+			userPicker.setData([{
+				value: 'city',
+				text: '市代理'
+			}, {
+				value: 'county',
+				text: '县代理'
+			}, {
+				value: 'manager',
+				text: '招商经理'
+			}, {
+				value: 'merchants',
+				text: '商家'
+			}]);
+			var $val,
+				cityPicker3;
+			var showUserPickerButton = doc.getElementById('showUserPicker');
+			var userResult = doc.getElementById('typeText');
+			showUserPickerButton.addEventListener('tap', function(event) {
+				userPicker.show(function(items) {
+					$val = items[0]['value'];
+					document.getElementById("type").value = $val;
+					userResult.innerText = items[0]['text'];
+					if($val == 'city') {
+						$val = 2;
+						cityPicker3 = new $.PopPicker({
+							layer: $val
+						});
+						cityPicker3.setData(cityData);	
+					} else if($val == 'merchants') {
+						window.location.href="";
+						return false;
+					} else {
+						$val = 3;
+						cityPicker3 = new $.PopPicker({
+							layer: $val
+						});
+						cityPicker3.setData(cityData3);			
+					}
+							
+					//返回 false 可以阻止选择框的关闭
+					//return false;*/
+				});
+			}, false);			
+			var showCityPickerButton = doc.getElementById('cityChoose');
+			var cityResult = doc.getElementById('cityText');
+			showCityPickerButton.addEventListener('tap', function(event) {
+				cityPicker3.show(function(items) {
+					if($val ==2){
+						cityResult.innerText = items[1].text;
+						document.getElementById("city").value = items[1].text;
+					}else{
+						cityResult.innerText = items[2].text;
+						document.getElementById("city").value = items[2].text;
+					}
+					//返回 false 可以阻止选择框的关闭
+					//return false;
+				});
+			}, false);
+		});
+	})(mui, document);
+
+// 提交加载状态
+mui(document.body).on('tap', '.mui-btn-block', function(e) {
+	 var regBox = {
+        regMobile : /^1[3578]{1}[0-9]{9}|14(5|7)[0-9]{8}$/,//手机
+    }
+    var mobile = document.getElementById("tel").value;
+    var type = document.getElementById("type").value;
+    var city = document.getElementById("city").value;
+    var read = document.getElementById("read");
+    var mflag = regBox.regMobile.test(mobile);
+    if(!read.checked){
+    	mui.alert('请阅读《帐号升级协议');
+    }else if(!mflag) {
+		mui.alert('手机号码有误');
+	}else if(type == ''){
+		mui.alert('请选择帐号类型');
+	}else if(city == ''){
+		mui.alert('请选择地区');
+	}else{
+		mui(this).button('loading');
+		setTimeout(function() {
+		 	document.getElementById('submit').click();
+		 	mui(this).button('reset');
+		}.bind(this), 2000);
+	}
+});
+</script>
+</body>
+</html>
