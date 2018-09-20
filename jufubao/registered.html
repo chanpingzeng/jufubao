@@ -55,38 +55,409 @@
 
 
 <script type="text/javascript">
-function checkmobiel(str){
-	var reg = /^1[3578]{1}[0-9]{9}|14(5|7)[0-9]{8}$/;
-	return reg.test(str);
-}
-var flag = 1;
-mui("#mb_from").on("keyup","#mobile",function(){
-	var m = this.value;
-	if (checkmobiel(m) && flag) {
-		flag = 0;
-		mui.ajax({
-			url:"region_mobile.json",
-			data:{"mobile":m},
-			type:"post",
-			dataType:"JSON",
-			processData:true,
-			succes:function(res){
-				flag = 1;
-				if (res.code == 200) {
-					mui("#action").val(res.data);
-					mui("#submit").removeClass("mui-hidden").val(res.msg);
-				} else {
-					mui("#action").val("");
-					mui("#submit").addClass("mui-hidden");
-					alert(res.msg);
-				}
-			},error:function(xhr,type,errorThrown){
-				//alert(type);
-				alert("连接错误，请检查本地网络后刷新页面！");
-			},timeout:3000
-		});
-	}
-});
+var $$ = {
+    id: function (objName) {
+      if (document.getElementById) {
+        return document.getElementById(objName);
+      } else if (document.layers) {
+        return document.layers[objName];
+      } else {
+        return document.all.objName;
+      }
+    },
+    btfClass: function (obj) {
+      obj.className = obj.className.replace(/(^\s*)|(\s*$)/g, "");
+    },
+    hasClass: function (obj, name) {
+      return obj.className.match(new RegExp('(\\s|^)' + name + '(\\s|$)'));
+    },
+    addClass: function (obj, name) {
+      if (!$$.hasClass(obj, name)) {
+        obj.className += " " + name;
+        $$.btfClass(obj);
+      }
+    },
+    removeClass: function (obj, name) {
+      if ($$.hasClass(obj, name)) {
+        var reg = new RegExp('(\\s|^)' + name + '(\\s|$)');
+        obj.className = obj.className.replace(reg, ' ');
+        $$.btfClass(obj);
+      }
+    },
+    bind: function (obj, type, fn) {
+      obj.addEventListener ? obj.addEventListener(type, fn, false) : obj.attachEvent('on' + type, fn);
+    },
+    attr: function (obj, name, val) {
+      if (val) obj.setAttribute(name, val);
+      else return obj.getAttribute(name);
+    },
+    getURL:function() {
+      var Url = window.location.href;
+      var u, g, StrBack = '';
+      if (arguments[arguments.length - 1] == "#") u = Url.split("#");
+      else u = Url.split("?");
+      if (u.length == 1) g = '';
+      else g = u[1];
+      if (g != '') {
+        gg = g.split("&");
+        var MaxI = gg.length;
+        str = arguments[0] + "=";
+        for (i = 0; i < MaxI; i++) {
+          if (gg[i].indexOf(str) == 0) {
+            StrBack = gg[i].replace(str, "");
+            break;
+          }
+        }
+      }
+      return StrBack;
+    },
+    checkmobiel: function (str) {
+      var reg = /^1[3578]{1}[0-9]{9}|14(5|7)[0-9]{8}$/;
+      return reg.test(str);
+    },
+    makeinput: function (type, name, tips, fun) {
+      var p = document.createElement('input');
+      p.type = type;
+      p.id = name;
+      p.name = name;
+      this.attr(p, 'placeholder', tips);
+      $$.addClass(p,'my_box_input');
+      $$.id('body').appendChild(p);
+      if (typeof (fun) === 'function') fun(p);
+    },
+    setTitle:function(html){
+        $$.id("title").innerHTML = html;
+    },
+    print_err: function(txt,btn,act){
+      var a = act ? act : "send_sms_code";
+      var b = btn ? btn : "返回";
+      $$.setTitle(txt);
+      $$.id("act").value = a;
+      $$.id("submit").value = b;
+      $$.removeClass($$.id("submit"),"mui-hidden");
+    },
+    global_success : function (json,fun) {
+      if(json.code == 200){
+        var u = $$.getURL("backurl");
+        $$.setTitle(json.message);
+        setTimeout(function () {
+          if (u) {
+            location.href = decodeURIComponent(u);
+          } else {
+            mui.back();
+          }
+        },3000);
+      } else {
+        alert(json.message);
+        if(typeof (fun) === "function") fun();
+      }
+    },
+    init: function () {
+      var flag = 1;
+      $$.makeinput('text', 'mobile', '请输入手机号码', function (obj) {
+        $$.bind(obj, "keyup", function () {
+          var $v = obj.value;
+          if($v.length >= 11 && !$$.checkmobiel($v)) {
+            mui.toast("手机号码不正确",{duration:'long'});
+          }
+          if ($$.checkmobiel($v) && flag) {
+            flag = 0;
+            $$.attr(obj,"readonly","readonly");
+            mui.ajax({
+              url: 'region_mobile.json',
+              data: {"mobile": $v},
+              dataType: 'json',
+              type: 'post',
+              timeout: 5000,
+              success: function (json) {
+                obj.removeAttribute('readonly');
+                var act = "login";
+                if(json.code == 200){
+                  act = "send_sms_code";
+                }
+                $$.removeClass($$.id("submit"),"mui-hidden");
+                $$.id("act").value = act;
+                $$.id("submit").value = "下一步";
+              },
+              error: function () {
+                alert("通信失败，请检查网络");
+                location.reload();
+              }
+            });
+          }
+        })
+      });
+      $$.bind($$.id("submit"),"click", function () {
+        var act = $$.id('act').value;
+        switch (act) {
+          case "send_sms_code":
+            $$.send_sms_code();
+            break;
+          case "registered":
+            $$.registered();
+            break;
+          case "send_sms_code_loading":
+            alert("正在发送验证码");
+            break;
+          case "sms_code_click_timeout":
+            alert("请稍后发送验证码");
+            break;
+          case "input_send_code_err":
+            alert("验证码错误");
+            break;
+          case "sumbit_registered_loading":
+            alert("正在提交注册信息");
+            break;
+          case "input_sms_code":
+            $$.input_sms_code();
+            break;
+          case "check_nikename":
+            $$.check_nikename();
+            break;
+          case "login":
+            $$.login();
+            break;
+          case "check_login_password":
+            $$.check_login_password();
+            break;
+          case "check_set_login_password":
+            $$.check_set_login_password();
+            break;
+          case "submit_forgot":
+            $$.submit_forgot();
+            break;
+          default:
+            mui.back();
+        }
+        window.event.preventDefault();
+        window.event.returnValue = false;
+        return false;
+      });
+    },
+    send_sms_type:"registered",
+    ajax_reg_code:0,
+    send_sms_time:60,
+    send_sms_code: function (fun) {
+      $$.ajax_reg_code = 0;
+      $$.addClass($$.id("mobile"),"mui-hidden");
+      $$.id("act").value = "send_sms_code_loading";
+      $$.setTitle("..正在请求..");
+      $$.addClass($$.id("submit"),"mui-hidden");
+      if($$.id('verification')) {
+        $$.id('body').removeChild($$.id('verification'));
+      }
+      var $v = $$.id("mobile").value;
+      setTimeout(function () {
+        mui.ajax({
+          url: 'region_mobile.json',
+          data: {
+            "type":$$.send_sms_type,
+            "mobile": $v
+          },
+          dataType: 'json',
+          type: 'post',
+          timeout: 5000,
+          success: function (json) {
+            if(json.code == 200){
+              $$.ajax_reg_code = json.reg_code;
+              $$.input_sms_code();
+            } else {
+              alert(json.message);
+              $$.print_err(json.message,"再次发送");
+              return false;
+            }
+          },
+          error: function () {
+            $$.print_err("通信失败，请检查网络","再次发送");
+          }
+        });
+      },1000);
+    },
+    input_sms_code : function(){
+      $$.removeClass($$.id("submit"),"mui-hidden");
+      $$.setTitle("短信验证码已发送");
+      $$.id("act").value = "sms_code_click_timeout";
+      $$.id("submit").value = "60秒后再次发送";
+      var auto = window.setInterval(function () {
+        $$.send_sms_time--;
+        var txt = "重新发送验证码";
+        if ($$.send_sms_time > 0) {
+          txt = $$.send_sms_time+"秒后再次发送";
+        } else {
+          clearInterval(auto);
+          $$.send_sms_time = 60;
+          $$.id("act").value = "send_sms_code";
+        }
+        $$.id("submit").value = txt ;
+      },1000);
+      $$.makeinput('text', 'verification', '请输入验证码', function (obj) {
+        $$.bind(obj,"keyup",function () {
+          var $v = obj.value;
+          if($v.length == 4 && !isNaN($v)) {
+            if($v == $$.ajax_reg_code) {
+              clearInterval(auto);
+              $$.set_login_password();
+              $$.addClass(obj,"mui-hidden");
+            } else {
+              $$.setTitle("验证码错误");
+            }
+          }
+        });
+      });
+    },
+    set_login_password:function(){
+      $$.setTitle("设置登录密码");
+      $$.makeinput('password', 'password', '请设置五位数以上');
+      $$.makeinput('password', 'check_password', '再次输入密码');
+      $$.id("act").value = "check_set_login_password";
+      $$.id("submit").value = '校验密码';
+    },
+    check_set_login_password:function(){
+      var p = $$.id("password").value;
+      var c = $$.id("check_password").value;
+      if (p.length < 6) {
+        mui.alert("密码至少六位数");
+      }
+      if(p != c) {
+        mui.alert('两次输入的密码不一致');
+      }
+      if(p.length >= 6 && p === c) {
+        if($$.send_sms_type == 'registered') {
+          $$.set_nikename();
+        } else {
+          $$.submit_forgot();
+        }
+      }
+    },
+    set_nikename: function () {
+      $$.setTitle('请设置昵称');
+      $$.addClass($$.id("password"),"mui-hidden");
+      $$.id("body").removeChild($$.id("check_password"));
+      $$.makeinput('text', 'nikename', '只允许可以中英文或数字');
+      $$.id("act").value = "check_nikename";
+      $$.id("submit").value = '提交注册';
+    },
+    check_nikename : function () {
+      var $v = $$.id("nikename").value;
+      var txt = new RegExp(/[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im);
+      if(txt.test($v)){
+        alert('昵称不能包含特殊符号');
+      } else if($v.length < 4) {
+        alert('昵称至少四位数');
+      } else {
+        $$.registered();
+      }
+    },
+    registered: function () {
+      $$.setTitle('正在提交注册信息');
+      $$.id("act").value = "sumbit_registered_loading";
+      $$.addClass($$.id("submit"),"mui-hidden");
+      $$.addClass($$.id("nikename"),"mui-hidden");
+      mui.ajax({
+        url: 'region_mobile.json',
+        data: {
+          "mobile": $$.id('mobile').value,
+          "password":hex_md5($$.id('password').value),
+          "nikename":$$.id('nikename').value,
+          "verification": $$.id('verification').value
+        },
+        dataType: 'json',
+        type: 'post',
+        timeout: 5000,
+        success: function (json) {
+          $$.global_success(json);
+        },
+        error: function () {
+          $$.print_err("通信失败，请检查网络","再次发送","registered");
+        }
+      });
+    },
+    login: function () {
+      $$.setTitle("请输入密码");
+      $$.addClass($$.id("mobile"),"mui-hidden");
+      $$.id("act").value = "check_login_password";
+      $$.id("submit").value = '登录';
+      $$.makeinput('password', 'password');
+      var p = document.createElement('a');
+      p.id = "forgot_btn";
+      p.innerText = "忘记密码？";
+      $$.addClass(p,'font-color-yellow')
+      $$.id('footer').appendChild(p);
+      $$.bind(p,"click",function () {
+        $$.id('body').removeChild($$.id('password'));
+        $$.id('footer').removeChild(p);
+        $$.send_sms_type = "forgot";
+        $$.send_sms_code();
+      })
+    },
+    check_login_password : function () {
+      var $v = $$.id("password").value;
+      if($v.length >= 6) {
+        $$.id('footer').removeChild($$.id('forgot_btn'));
+        $$.submit_login();
+      } else {
+        mui.alert("密码至少六位数");
+      }
+    },
+    submit_login : function () {
+      $$.setTitle("..正在加载..");
+      $$.addClass($$.id("password"),"mui-hidden");
+      $$.addClass($$.id("submit"),"mui-hidden");
+      setTimeout(function () {
+        mui.ajax({
+          url: 'region_mobile.json',
+          data: {
+            "mobile": $$.id('mobile').value,
+            "password":hex_md5($$.id('password').value)
+          },
+          dataType: 'json',
+          type: 'post',
+          timeout: 5000,
+          success: function (json) {
+            $$.global_success(json,function () {
+              $$.id("body").removeChild($$.id("password"));
+              $$.login();
+              $$.removeClass($$.id("submit"),"mui-hidden");
+            });
+          },
+          error: function () {
+            $$.print_err("通信失败，请检查网络","再次发送","submit_login");
+          }
+        });
+      },1000);
+    },
+    submit_forgot: function () {
+      setTimeout(function () {
+        mui.ajax({
+          url: 'region_mobile.json',
+          data: {
+            mobile: $$.id('mobile').value,
+            password: hex_md5($$.id('password').value),
+            verification: $$.id('verification').value
+          },
+          dataType: 'json',
+          type: 'post',
+          timeout: 5000,
+          success: function (json) {
+            $$.id("body").removeChild($$.id("password"));
+            $$.id("body").removeChild($$.id("check_password"));
+            $$.addClass($$.id("submit"),"mui-hidden");
+            $$.global_success(json, function () {
+              $$.set_login_password();
+            });
+          },
+          error: function () {
+            $$.print_err("通信失败，请检查网络", "再次发送", "submit_forgot");
+          }
+        });
+      }, 1000);
+    }
+  }
+  ;(function (mui) {
+    mui.ready(function () {
+      $$.init();
+    });
+  })(window.mui || window);
 </script>
 </body>
 </html>
